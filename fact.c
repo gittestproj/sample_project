@@ -1,5 +1,6 @@
 int main()
 {
+//factorial counting
 unsigned int n,k = 1;
 printf("Enter N: ");
 scanf("%i",&n);
