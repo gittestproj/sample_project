@@ -1,6 +1,7 @@
 int main()
 {
 unsigned int n,k = 1;
+printf("Enter N: ");
 scanf("%i",&n);
 int i;
 if (n > 20) {
