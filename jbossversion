@@ -5,6 +5,7 @@ import re
 import timeit
 import json
 
+
 def gather_version():
 	args_file = sys.argv[1]
         args_data = file(args_file).read()
@@ -15,16 +16,16 @@ def gather_version():
 		res = 0
 		while not res:
 			test_str = jboss_logfile.readline()
-			re_str = "\[org\.jboss\.as\]\s(.*?)\sstarting"
+			re_str = "JBAS\d{6}\:\s(.*?)\sstarting"
 			regex = re.compile(re_str)
 			res = regex.search(test_str)
 		if res:
-			print json.dumps({"version" : res.group(1).strip(), "changed" : "True", "failed" : "False"})
+			print json.dumps({"failed" : False, "version" : res.group(1).strip(), "changed" : True})
 			dbgfile = open("/tmp/vers","w")
 			dbgfile.write(res.group(1).strip())
 		else:
-			print json.dumps({"error" : "Version not found or not a Jboss log", "failed" : "True"})
+			print json.dumps({"error" : "Version not found or not a Jboss log", "failed" : True})
 	except: 
-		print json.dumps({"error" : "Error while logfile reading", "failed" : "True"})
+		print json.dumps({"error" : "Error while logfile reading", "failed" : True})
 
 gather_version()
